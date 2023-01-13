@@ -1,28 +1,49 @@
-var startButton =  document.querySelector("#start"); 
-var choices =  document.querySelector(".choices"); 
+let startButton = document.querySelector("#start");
+let choices = document.querySelector("#choices");
+let timer = document.querySelector("#time");
+let questionTitle = document.querySelector("#question-title");
 
-let questions = ["Question1", "Question2", "Question3"]
+let questionsArray = [{question: "exQ1", answers: ["Ex1", "Ex2", "Ex3"], correctAnswer: 2},
+{question: "exQ2", answers: ["Ex1", "Ex2", "Ex3"], correctAnswer: 2},
+{question: "exQ3", answers: ["Ex1", "Ex2", "Ex3"], correctAnswer: 2}
+]
 
+let currentQuestion = 0;
 
-// startButton.addEventListener("submit", function(event) {
+startButton.addEventListener("click", function (event) {
+   let timerCount = 90;
 
-// })
+   let intervalID = setInterval(function () {
+        timerCount--
+        timer.textContent = timerCount
+        if(timerCount === 0) {
+            clearInterval(intervalID);}
+    }, 1000)
 
-// choices.addEventListener("submit", function(event) {
+    eachquestion()
+})
 
-// })
-
-function questions(){
-    for (let i = 0; i < questions.length; i++) {
-        const question = questions[i];
-        
-        let eachquestion = document.createElement("div");
-    eachquestion.textContent = question;
-
-    eachquestion.setAttribute("data-index", i)
-
-
-    eachquestion.appendChild()
-
-    }
+function eachquestion() {
+    const question = questionsArray[currentQuestion];
+    for (let i = 0; i < questionsArray.length; i++) {
+        // const question = questionsArray[i];
+        currentQuestion = questionsArray[i]
 }
+if (currentQuestion < questionsArray.length - 1) {
+    currentQuestion++;
+    eachquestion();
+  } else {
+    alert("You've reached the last question.");
+  }
+}
+
+
+
+
+// choices.addEventListener("click", function(event) {
+
+//     if (event.target.matches("button")) {
+//         event.target.getAttribute("data-index")
+//     }
+// })
+
