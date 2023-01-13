@@ -2,6 +2,8 @@ let startButton = document.querySelector("#start");
 let choices = document.querySelector("#choices");
 let timer = document.querySelector("#time");
 let questionTitle = document.querySelector("#question-title");
+let startScreenContainer = document.querySelector("#start-screen")
+let questionsE1 = document.querySelector("#questions");
 
 let questionsArray = [{question: "exQ1", answers: ["Ex1", "Ex2", "Ex3"], correctAnswer: 2},
 {question: "exQ2", answers: ["Ex1", "Ex2", "Ex3"], correctAnswer: 2},
@@ -19,6 +21,9 @@ startButton.addEventListener("click", function (event) {
         if(timerCount === 0) {
             clearInterval(intervalID);}
     }, 1000)
+
+    startScreenContainer.classList.add("hide")
+    questionsE1.classList.remove("hide")
 
     eachquestion()
 })
