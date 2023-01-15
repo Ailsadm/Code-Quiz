@@ -9,15 +9,19 @@ let answer2 = document.querySelector("#answer2");
 let answer3 = document.querySelector("#answer3");
 let endscreen = document.querySelector("#end-screen")
 let finalscore = document.querySelector("#final-score")
+let submitbutton = document.querySelector("#submit")
+let initialsE1 = document.querySelector("#initials")
+let feedbackE1 = document.querySelector("#feedback")
 
-let questionsArray = [{question: "What does JS stand for", answers: ["JavaScript", "JunctionStart", "JavaStart"], correctAnswer: 0},
-{question: "exQ2", answers: ["Ex1-1", "Ex2", "Ex3"], correctAnswer: 2},
+let questionsArray = [{question: "What does JS stand for", answers: ["JavaScript", "JunctionStart", "JavaStart"], correctAnswer: "JavaScript"},
+{question: "exQ2", answers: ["Ex1-1", "Ex2", "Ex3"], correctAnswer: "Ex2"},
 {question: "exQ3", answers: ["Ex1-2", "Ex2", "Ex3"], correctAnswer: 2}
 ]
 
 let currentQuestion;
 let currentChoices = 0;
-let timerCount = 90;
+let timerCount = 10;
+let questionCount = 0;
 
 startButton.addEventListener("click", function (event) {
   
@@ -25,7 +29,14 @@ startButton.addEventListener("click", function (event) {
     timerCount--
     timer.textContent = timerCount
     if(timerCount === 0) {
-      clearInterval(intervalID);}
+      clearInterval(intervalID);
+      if(questionCount < 3){
+      endscreen.classList.remove("hide")
+    }
+      questionsContainer.classList.add("hide")
+      finalscore.textContent = 0;
+    }
+  
     }, 1000)
     
     startScreenContainer.classList.add("hide")
@@ -35,7 +46,7 @@ startButton.addEventListener("click", function (event) {
    
   })
   
-let questionCount = 0;
+
 function setQuestionandanswers(event) {
   if (questionCount <= questionsArray.length - 1){
     currentQuestion = questionsArray[questionCount].question
@@ -49,7 +60,6 @@ function setQuestionandanswers(event) {
   answer3.textContent = currentChoices[2];
   }
   else{
-    clearInterval(timer)
     finalscore.textContent = timerCount
     endscreen.classList.remove("hide")
     questionsContainer.classList.add("hide")
@@ -59,15 +69,55 @@ function setQuestionandanswers(event) {
 
 answer1.addEventListener("click", function(event) {
   questionCount++
-  // questionsArray[questionCount].correctAnswer
-  setQuestionandanswers(event.target.textContent)
+  if (event.target.textContent !== questionsArray[0].correctAnswer) {
+    timerCount = timerCount -10;
+  }
+  console.log(event.target.textContent)
+  setQuestionandanswers()
 
-  if (questionsArray[0].answers === questionsArray[0].correctAnswer) {
-    return true
+})
+answer2.addEventListener("click", function(event) {
+  questionCount++
+  if (event.target.textContent !== questionsArray[1].correctAnswer) {
+    timerCount = timerCount -10;
   }
-  else {
-    return false;
-    timerCount -10;
+  console.log(event.target.textContent)
+  setQuestionandanswers()
+
+})
+answer3.addEventListener("click", function(event) {
+  questionCount++
+  if (event.target.textContent !== questionsArray[2].correctAnswer) {
+    timerCount = timerCount -10;
   }
+  console.log(event.target.textContent)
+  setQuestionandanswers()
+
 })
 
+submitbutton.addEventListener("click", function(){
+
+  feedbackE1.classList.remove("hide")
+  endscreen.classList.add("hide")
+
+  let oldscores = []
+  if(localStorage.scores !== undefined){
+    oldscores = JSON.parse(localStorage.scores)
+  }
+  
+  oldscores.push({name: initialsE1.value, score: timerCount})
+
+
+  localStorage.setItem( "scores", JSON.stringify(oldscores))
+  let latestScores = JSON.parse(localStorage.scores)
+
+  for (let i = 0; i < latestScores.length; i++) {
+    const element = latestScores[i];
+    let item1 =  document.createElement("p")
+    item1.textContent = element.name + "-" + element.score
+    feedbackE1.appendChild(item1)
+  }
+
+
+  console.log(JSON.parse(localStorage.scores))
+})
