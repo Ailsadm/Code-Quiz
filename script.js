@@ -13,14 +13,14 @@ let submitbutton = document.querySelector("#submit")
 let initialsE1 = document.querySelector("#initials")
 let feedbackE1 = document.querySelector("#feedback")
 
-let questionsArray = [{question: "What does JS stand for", answers: ["JavaScript", "JunctionStart", "JavaStart"], correctAnswer: "JavaScript"},
-{question: "exQ2", answers: ["Ex1-1", "Ex2", "Ex3"], correctAnswer: "Ex2"},
-{question: "exQ3", answers: ["Ex1-2", "Ex2", "Ex3"], correctAnswer: 2}
+let questionsArray = [{question: "What does JS stand for?", answers: ["JavaScript", "JunctionStart", "JavaStart"], correctAnswer: "JavaScript"},
+{question: "What are people who write computer code called?", answers: ["Manufacturers", "Programmers", "Professors"], correctAnswer: "Programmers"},
+{question: "What word describes the set of instructions a computer needs to work?", answers: ["Agenda", "Blueprint", "Program"], correctAnswer: "Program"}
 ]
 
 let currentQuestion;
 let currentChoices = 0;
-let timerCount = 10;
+let timerCount = 90;
 let questionCount = 0;
 
 startButton.addEventListener("click", function (event) {
